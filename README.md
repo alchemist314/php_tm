@@ -1,4 +1,4 @@
-<b>PHP_TM</b> - simply application to help you organize many of tabs in your browser
+<b>PHP_TM (php tab management)</b> - simply application to help you organize many of tabs in your browser
 <br><br><b>for example:</b>
 <br><br><img src="https://raw.githubusercontent.com/alchemist314/images/main/php_tm/tabs.png">
 <br><br><b>create a new tab:</b>
