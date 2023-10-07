@@ -27,7 +27,7 @@
 The way to save all your tabs from browser to bookmarks (Firefox browser, for example):
 <br><br>&nbsp;&nbsp;1. First of all you need to install Firefox extension like "save my tabs":
 <br>&nbsp;&nbsp;https://addons.mozilla.org/en-US/firefox/addon/save-all-my-tabs/
-<br>&nbsp;&nbsp;2. Save all your tabs to booomarks with extension above
+<br>&nbsp;&nbsp;2. Save all your tabs to bookmarks with extension above
 <br>&nbsp;&nbsp;3. Export tabs from Firefox (press Ctrl+Shif+O to open bookmarks manager dialog)
 <br>&nbsp;&nbsp;4. Now you can parse html with php_tm:
 <br>&nbsp;&nbsp;&nbsp;&nbsp;- edit config.php (you should set path to html file you exported from Firefox and other needed variables)
