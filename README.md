@@ -1,9 +1,9 @@
 <b>PHP_TM</b> - simply application to help you organize many of tabs in your browser
 <br><br><b>for example:</b>
 <br><br><img src="https://raw.githubusercontent.com/alchemist314/images/main/php_tm/tabs.png">
-<br><br><b>create new tab:</b>
+<br><br><b>create a new tab:</b>
 <br><br><img src="https://raw.githubusercontent.com/alchemist314/images/main/php_tm/tab_create.png">
-<br><b>edit tab:</b>
+<br><b>edit a tab:</b>
 <br><br><img src="https://raw.githubusercontent.com/alchemist314/images/main/php_tm/tab_edit.png">
 <br><br>
 <b>Install:</b>
