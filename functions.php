@@ -157,7 +157,12 @@ function fSanitize ($vString, $vLength="", $aParam="") {
 	return $sIconSource;
     }
 
-    // Get title and favicon url
+/**
+ * Get title and favicon url
+ * 
+ * @param string $sUrl
+ * @return string
+ */
     function fParseHTML($sUrl) {
 
 	$aResult['url']=$sUrl;
@@ -247,7 +252,7 @@ function fLoadCategories() {
 
 /**
  * Load urls and titles from data table
- * called from view.php
+ * called from index.php
  * 
  * @global object $oPDO - SQLite object
  * @global string $sExportString - prepare string for exports bookmarks
