@@ -171,7 +171,7 @@ function fSanitize ($vString, $vLength="", $aParam="") {
 
 	if ($oHTML->loadHTML(file_get_contents($sUrl))) {
 	    $oList=$oHTML->getElementsByTagName("title");
-	    $aResult['title']=$oList->item(0)->nodeValue;
+    	    $aResult['title'] = str_replace(["\r", "\n"], "", $oList->item(0)->nodeValue);
 	    $oLink=$oHTML->getElementsByTagName("head")->item(0)->getElementsByTagName("link");
 
 	    foreach($oLink as $oElements) {
@@ -297,9 +297,14 @@ function fLoadTabs($sTabParentID) {
 			<td style="padding-left:3px;">
 				<a href="javascript:void(0)" onclick="if (confirm('Обновить иконку <?=substr($aRow['tab_title'],0,150)?>?')) { document.getElementById('frm_update_icon_id').value='<?=$aRow['id']?>'; document.getElementById('frm_update_icon_domain').value='<?=$aRow['tab_url']?>';  document.getElementById('frm_icon_update').submit();}"><img src="img/refresh_ico.png" width=45 height=22></a>
 			</td>
-			<td style="padding-left:3px;">
-				<a href="javascript:void(0)" onclick="document.getElementById('frm_add_tab_action_<?=$sTabParentID?>').value='edit'; document.getElementById('frm_add_tab_title_<?=$sTabParentID?>').value='<?=$aRow['tab_title']?>'; document.getElementById('frm_add_tab_url_<?=$sTabParentID?>').value='<?=$aRow['tab_url']?>'; document.getElementById('frm_add_tab_action_<?=$sTabParentID?>').value='edit'; document.getElementById('frm_add_tab_edit_item_id_<?=$sTabParentID?>').value='<?=$aRow['id']?>'; location.href='#edit_tab_<?=$sTabParentID?>'"><img src="img/edit.png" width=45 height=22></a>
-			</td>
+                        <td style="padding-left:3px;">
+                            <a href="javascript:void(0)" onclick="document.getElementById('frm_add_tab_action_<?= $sTabParentID ?>').value = 'edit';
+                                                        document.getElementById('frm_add_tab_title_<?= $sTabParentID ?>').value = '<?= $aRow['tab_title'] ?>';
+                                                        document.getElementById('frm_add_tab_url_<?= $sTabParentID ?>').value = '<?= $aRow['tab_url'] ?>';
+                                                        document.getElementById('frm_add_tab_edit_item_id_<?= $sTabParentID ?>').value = '<?= $aRow['id'] ?>';
+                                                        document.getElementById('frm_add_tab_submit_<?=$sTabParentID?>').value = 'Update';
+                                                        location.href = '#edit_tab_<?= $sTabParentID ?>'"><img src="img/edit.png" width=45 height=22></a>
+                        </td>
 			<td style="padding-left:10px; white-space: nowarp;">
 			    <img src="<?=$aDomainName[$aEXP_Domain_Next[0]]?>" width="24" height="24"><?=$sID_URL?>
 			</td>

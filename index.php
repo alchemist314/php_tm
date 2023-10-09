@@ -77,7 +77,7 @@ if (isset($_REQUEST['frm_sort'])) {
 
     $sCheckBoxAddTabAutoTitle=false;
     foreach($aCatID as $sID) {
-	if ($_REQUEST["frm_add_tab_submit_$sID"]=="Add") {
+	if ($_REQUEST["frm_add_tab_submit_$sID"]=="Add" || $_REQUEST["frm_add_tab_submit_$sID"]=="Update") {
 	    if ($_REQUEST["frm_add_tab_auto_title_$sID"]=="on") {
 		$sCheckBoxAddTabAutoTitle=true;
 	    }
@@ -342,9 +342,14 @@ if (($aAddTab['action']=="add_tab") && (strlen($aAddTab['url'])>0)) {
 		    </tr>
 		    <tr>
 			<td colspan="2">Add title and favicon automatically:<input type="checkbox" name="frm_add_tab_auto_title_<?=$sCatID?>" id="frm_add_tab_auto_title_<?=$sCatID?>">
-			<input type="hidden" name="frm_add_tab_action_<?=$sCatID?>" id="frm_add_tab_action_<?=$sCatID?>" value="add_tab">
+			    <input type="hidden" name="frm_add_tab_action_<?=$sCatID?>" id="frm_add_tab_action_<?=$sCatID?>" value="add_tab">
 			    <input type="hidden" name="frm_add_tab_edit_item_id_<?=$sCatID?>" id="frm_add_tab_edit_item_id_<?=$sCatID?>" value="">
-			    <input type="submit" name="frm_add_tab_submit_<?=$sCatID?>" value="Add">
+			    <input type="submit" name="frm_add_tab_submit_<?=$sCatID?>" id="frm_add_tab_submit_<?=$sCatID?>" value="Add">
+			    <input type="button" name="frm_add_tab_cancel_<?=$sCatID?>" onclick="document.getElementById('frm_add_tab_action_<?=$sCatID?>').value = 'add_tab';
+			    									 document.getElementById('frm_add_tab_submit_<?=$sCatID?>').value = 'Add';
+			    									 document.getElementById('frm_add_tab_edit_item_id_<?=$sCatID?>').value = '';
+			    									 document.getElementById('frm_add_tab_title_<?=$sCatID?>').value = '';
+			    									 document.getElementById('frm_add_tab_url_<?=$sCatID?>').value = '';" value="Cancel">
 			</td>
 		    </tr>
 		</table>
