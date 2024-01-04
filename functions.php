@@ -3,7 +3,7 @@
 /*
 MIT License
 
-Copyright (c) 2023 Golovanov Grigoriy
+Copyright (c) 2023-2024 Golovanov Grigoriy
 Contact e-mail: magentrum@gmail.com
 
 
@@ -192,9 +192,12 @@ function fSanitize ($vString, $vLength="", $aParam="") {
      * @param array of strings
      * 
      */
-
     function fErrorHandler($aParam) {
-	print "<div style='padding:10px;background-color:#ffe8b7;'><b>filename:</b> ".$aParam['filename']."<br><b>line:</b> ".$aParam['line']."<br><b>SQLite Error: </b><font color=\"red\">".$aParam['error']."</font></div><br>";
+        if (PHP_SAPI==='cli') {
+            print "filename: " . $aParam['filename'] . ", line: " . $aParam['line'] . ", SQLite Error: \e[91m" . $aParam['error'] . "\e[39m \n";
+        } else {
+            print "<div style='padding:10px;background-color:#ffe8b7;'><b>filename:</b> " . $aParam['filename'] . "<br><b>line:</b> " . $aParam['line'] . "<br><b>SQLite Error: </b><font color=\"red\">" . $aParam['error'] . "</font></div><br>";
+        }
     }
 
     /**
@@ -203,9 +206,12 @@ function fSanitize ($vString, $vLength="", $aParam="") {
      * @param array of strings
      * 
      */
-
     function fMessageHandler($aParam) {
-        print "<div style='padding:10px;background-color:#ffe8b7;'>".$aParam['message']."<font color=\"green\">".$aParam['additional_message']."</font></div><br>";
+        if (PHP_SAPI==='cli') {
+            print $aParam['message'] . "\e[92m" . $aParam['additional_message']."\e[39m \n";
+        } else {
+            print "<div style='padding:10px;background-color:#ffe8b7;'>" . $aParam['message'] . "<font color=\"green\">" . $aParam['additional_message'] . "</font></div><br>";        
+        }
     }
     
     /**
@@ -265,6 +271,28 @@ function fLoadTabs($sTabParentID) {
 	       $sExportString,
 	       $sHexColor;
 	
+        
+        
+    $aExtensionsArray =[
+      'pdf','txt', 'htm',
+      'html', 'js','php',
+      'java', 'py', 'asp',
+      'shtml', 'aspx', 'cpp',
+      'doc', 'xls', 'xlsx',
+      'docx', 'odf', 'ods',
+      'odt', 'xml',
+      'avi', 'mp3', 'mp4',
+      'mpeg4', 'wav', 'mpeg',
+      'ico', 'jpg', 'jpeg',
+      'bmp', 'gif', 'tiff',
+      'png', 
+      'zip', 'tar', 'tgz',
+      'gz', 'rar', '7z',
+      'exe', 'bat', 'msi',
+      'iso', 'img', 'vmdk'
+    ];
+    
+        
         $sQuery="
         SELECT *
         FROM
@@ -282,6 +310,16 @@ function fLoadTabs($sTabParentID) {
 		    // Explode domain name
 		    $aEXP_Domain=explode("://", $aRow['tab_url']);
 		    $aEXP_Domain_Next=explode("/", $aEXP_Domain[1]);
+                    
+                    // Get file extension
+                    $aSplitUrl=explode(".", $aEXP_Domain[1]);
+                    $sLastElement=$aSplitUrl[count($aSplitUrl)-1];
+                    if (in_array($sLastElement,$aExtensionsArray)) {
+                        $sExtension="(".$sLastElement.")";
+                    } else {
+                        $sExtension="";                    
+                    }
+                    
 		    strlen($aRow['tab_icon'])>10 ? $aDomainName[$aEXP_Domain_Next[0]]=$aRow['tab_icon'] : $aDomainName[$aEXP_Domain_Next[0]]='';
         	    $sExportString .="<DT><A HREF=\"".$aRow['tab_url']."\" ADD_DATE=\"".time()."\" LAST_MODIFIED=\"".time()."\" ICON_URI=\"".$aRow['tab_icon_url']."\" ICON=\"".$aRow['tab_icon']."\">".$aRow['tab_title']."</A>\n";
 		    
@@ -309,7 +347,7 @@ function fLoadTabs($sTabParentID) {
 			    <img src="<?=$aDomainName[$aEXP_Domain_Next[0]]?>" width="24" height="24"><?=$sID_URL?>
 			</td>
 			<td style="padding-left:5px;">
-			     <a href="<?=$aRow['tab_url']?>" target='blank'><?=substr($aRow['tab_title'],0,PHP_TM_STRING_LENGTH)?></a>
+			     <a href="<?=$aRow['tab_url']?>" target='blank'><?=substr($aRow['tab_title'],0,PHP_TM_STRING_LENGTH)?></a> <?=$sExtension?>
 			</td>
 		    </tr>
 		</table>
